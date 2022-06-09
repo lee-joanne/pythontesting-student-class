@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import requests
 
 
 class Student:
@@ -29,3 +30,12 @@ class Student:
     @property
     def email(self):
         return f"{self._first_name.lower()}.{self._last_name.lower()}@email.com"
+
+
+    def course_schedule(self):
+        response = requests.get(f"http://company.com/course-schedule/{self._last_name}/{self._first_name}")
+
+        if response.ok:
+            return response.text
+        else:
+            return "something went wrong with the request!"
